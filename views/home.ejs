@@ -17,6 +17,9 @@
                         <%=post.content%><br>
                         <%=post.user.name%>
                         </p>
+                        <% if(locals.user && locals.user.id==post.user.id){%>
+                        <a href="/posts/destroy/<%=post.id%>">||</a>
+                        <%}%>
                         <div class="posts-container">
                             <% if(locals.user){%>
                                 <form action="/comments/create" method="POST">
