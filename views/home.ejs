@@ -5,10 +5,10 @@
         <section id="feed-posts">
             <h4>Posts</h4>
             <form action="/posts/create" id="new-post-form" method="Post">
-                <textarea name="content" cols="30" rows="3"></textarea>
+                <textarea name="content" cols="30" rows="3" required></textarea>
                 <input type="submit" value="Post">
             </form>
-            <div>
+            <div id="post-list-container">
                 <ul>
                     <% if(locals.user){%>
                 <% for(post of posts){%>
@@ -17,6 +17,27 @@
                         <%=post.content%><br>
                         <%=post.user.name%>
                         </p>
+                        <div class="posts-container">
+                            <% if(locals.user){%>
+                                <form action="/comments/create" method="POST">
+                                    <input type="text" name="content" placeholder="type comment" required>
+                                    <input type="hidden" name="post" value="<%=post._id%>">
+                                    <input type="submit" value="Add Comment"> 
+                                </form>
+                            <%}%>
+                            <div id="post-list-container">
+                                <ul id="post-comments-<%=post._id%>">
+                                <% for(comment of post.comments){%>
+                                    <li>
+                                        <p>
+                                        <%=comment.content%><br>
+                                        <%=comment.user.name%>
+                                        </p>
+                                    </li>
+                                    <%}%>
+                                </ul>
+                            </div>
+                        </div>
                     </li>
                 <%}%>
                 <%}%>
