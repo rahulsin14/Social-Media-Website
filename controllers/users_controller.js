@@ -32,6 +32,7 @@ module.exports.signUp = function(req, res){
 }
 module.exports.destroySession=function(req,res){
     req.logout();
+    req.flash('success','You are looged out');
     return res.redirect('/');
 }
 
@@ -71,5 +72,6 @@ module.exports.create = function(req, res){
 
 // sign in and create a session for the user
 module.exports.createSession = function(req, res){
+    req.flash('success','You are looged in');
     return res.redirect('/');
 }
