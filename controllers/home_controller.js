@@ -10,15 +10,18 @@ module.exports.home = async function(req, res){
     //     });
     // })
 try{
-    let posts=await Post.find({})
-    .sort('-createdAt')
-    .populate('user')
-    .populate({
-        path:'comments',
-        populate:{
-            path:'user'
-        }
-    });
+    let posts = await Post.find({})
+        .sort('-createdAt')
+        .populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            },
+            populate: {
+                path: 'likes'
+            }
+        }).populate('likes');
     let users =await User.find({});
     return res.render('home', {
         title: "Home",
